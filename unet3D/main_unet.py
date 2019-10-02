@@ -26,6 +26,7 @@ flags.DEFINE_string("results_dir", "results/", "Directory name to save the resul
 flags.DEFINE_boolean("load_chkpt", False, "True for loading saved checkpoint")
 flags.DEFINE_boolean("training", False, "True for Training ")
 flags.DEFINE_boolean("testing", False, "True for Testing ")
+flags.DEFINE_boolean("gpu_growth", True, "True for GPUs of the RTX kind")
 
 
 flags.DEFINE_integer("batch_size", 30, "The size of batch images(30 for data1 and 20 for data2")
@@ -47,7 +48,7 @@ def main(_):
     os.makedirs(FLAGS.best_checkpoint_dir)
 
   # To configure the GPU fraction
-  gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=FLAGS.gpu_frac)
+  gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=FLAGS.gpu_frac, allow_growth=FLAGS.gpu_growth)
 
   # Parameters of extracted training and testing patches
   patch_shape=(32,32,32)
